@@ -15,6 +15,15 @@
                 <flux:navlist.group heading="Platform" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>Dashboard</flux:navlist.item>
                 </flux:navlist.group>
+
+                <flux:navlist.item icon="list-bullet" :href="route('workouts.index')" :current="request()->routeIs('workouts.index')" wire:navigate>
+                    {{ __('トレーニング記録') }}
+                </flux:navlist.item>
+                
+                <flux:navlist.item icon="pencil-square" :href="route('workouts.create')" :current="request()->routeIs('workouts.create')" wire:navigate>
+                    {{ __('記録する') }}
+                </flux:navlist.item>
+
             </flux:navlist>
 
             <flux:spacer />
