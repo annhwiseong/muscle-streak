@@ -18,7 +18,7 @@
         <label for="body_part" class="block text-sm font-bold mb-2">部位</label>
         <select name="body_part" id="body_part" class="border rounded w-full py-2 px-3 dark:bg-gray-700">
           @foreach (\App\Models\Workout::BODY_PARTS as $part)
-          <option value="{{ $part }}" @selected(old('body_part') === $part)>{{ $part }}</option>
+          <option value="{{ $part }}" @selected(old('body_part', $todaySchedule?->body_part) === $part)>{{ $part }}</option>
           @endforeach
         </select>
         @error('body_part')

@@ -21,7 +21,12 @@ class WorkoutController extends Controller
 
     public function create()
     {
-        return view('workouts.create');
+        // 今日の曜日の予定を取得（なければ null）
+        $todaySchedule = Auth::user()->schedules()
+            ->where('day_of_week', today()->dayOfWeek)
+            ->first();
+
+        return view('workouts.create', compact('todaySchedule'));
     }
 
     public function store(Request $request)

@@ -24,6 +24,10 @@
                     {{ __('記録する') }}
                 </flux:navlist.item>
 
+                <flux:navlist.item icon="calendar" :href="route('schedule.edit')" :current="request()->routeIs('schedule.edit')" wire:navigate>
+                    {{ __('予定の設定') }}
+                </flux:navlist.item>
+
             </flux:navlist>
 
             <flux:spacer />

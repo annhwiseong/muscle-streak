@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\WorkoutController;
+use App\Http\Controllers\ScheduleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,6 +15,8 @@ Route::view('dashboard', 'dashboard')
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
+    Route::get('/schedule', [ScheduleController::class, 'edit'])->name('schedule.edit');
+    Route::put('/schedule', [ScheduleController::class, 'update'])->name('schedule.update');
     Route::resource('workouts', WorkoutController::class);
 
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');

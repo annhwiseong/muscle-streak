@@ -62,4 +62,9 @@ class User extends Authenticatable // implements MustVerifyEmail
     {
         return $this->hasMany(Workout::class);
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
 }
