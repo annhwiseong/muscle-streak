@@ -80,7 +80,7 @@ class User extends Authenticatable // implements MustVerifyEmail
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'follow_id')->withTimestamps();
     }
-    
+
     // 予定した曜日に連続でトレーニングできた回数
     public function scheduleStreak(): int
     {
@@ -91,8 +91,9 @@ class User extends Authenticatable // implements MustVerifyEmail
         }
 
         // トレーニングした日付をまとめて取得し、キーにする（例：['2026-09-28' => 0, ...]）
-        $trainedDates = $this->workouts()
-            ->pluck('trained_on')
+        $trainedDates = ($this->relationLoaded('workouts')
+                ? $this->workouts->pluck('trained_on')
+                : $this->workouts()->pluck('trained_on'))
             ->map(fn ($date) => Carbon::parse($date)->toDateString())
             ->unique()
             ->flip();
@@ -125,5 +126,21 @@ class User extends Authenticatable // implements MustVerifyEmail
         }
 
         return $streak;
+    }
+
+    // 今日の予定（なければ null ＝ 休養日）
+    public function todaySchedule()
+    {
+        return $this->schedules->firstWhere('day_of_week', today()->dayOfWeek);
+    }
+
+    // 今日すでに記録したか
+    public function trainedToday(): bool
+    {
+        if ($this->relationLoaded('workouts')) {
+            return $this->workouts->contains(fn ($workout) => $workout->trained_on->isToday());
+        }
+
+        return $this->workouts()->whereDate('trained_on', today())->exists();
     }
 }

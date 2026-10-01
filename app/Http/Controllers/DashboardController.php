@@ -11,20 +11,31 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        $streak = $user->scheduleStreak();
+        // ===== 自分の状況 =====
+        $streak        = $user->scheduleStreak();
+        $todaySchedule = $user->todaySchedule();
+        $trainedToday  = $user->trainedToday();
+        $hasSchedule   = $user->schedules->isNotEmpty();
+        $todayLabel    = Schedule::DAYS[today()->dayOfWeek];
 
-        // 今日の曜日の予定（なければ null ＝ 休養日）
-        $todaySchedule = $user->schedules->firstWhere('day_of_week', today()->dayOfWeek);
+        // ===== 仲間の状況 =====
+        // フォロー中のユーザーと、その予定・記録をまとめて取得（N+1 対策）
+        $friends = $user->follows()
+            ->with(['schedules', 'workouts:id,user_id,trained_on'])
+            ->get();
 
-        // 今日すでに記録したか
-        $trainedToday = $user->workouts()->whereDate('trained_on', today())->exists();
+        // 1人ずつストリークを計算して持たせておき、多い順に並べる
+        $friends->each(fn ($friend) => $friend->streak = $friend->scheduleStreak());
+        $friends = $friends->sortByDesc('streak')->values();
 
-        // 今日の曜日の表示名（例：火）
-        $todayLabel = Schedule::DAYS[today()->dayOfWeek];
+        // 今日が予定日なのに、まだ記録していない仲間
+        $notYetFriends = $friends->filter(
+            fn ($friend) => $friend->todaySchedule() && ! $friend->trainedToday()
+        );
 
-        // 予定が1つもないか
-        $hasSchedule = $user->schedules->isNotEmpty();
-
-        return view('dashboard', compact('streak', 'todaySchedule', 'trainedToday', 'todayLabel', 'hasSchedule'));
+        return view('dashboard', compact(
+            'streak', 'todaySchedule', 'trainedToday', 'hasSchedule', 'todayLabel',
+            'friends', 'notYetFriends'
+        ));
     }
 }
