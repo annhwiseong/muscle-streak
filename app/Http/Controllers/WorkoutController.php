@@ -12,6 +12,7 @@ class WorkoutController extends Controller
     public function index()
     {
         $workouts = Workout::with(['user', 'liked'])
+            ->withCount('comments')
             ->latest('trained_on') // トレーニング日の新しい順
             ->latest()             // 同じ日なら作成が新しい順
             ->get();
@@ -44,7 +45,7 @@ class WorkoutController extends Controller
 
     public function show(Workout $workout)
     {
-        $workout->load('liked');
+        $workout->load(['liked', 'comments.user']);
         return view('workouts.show', compact('workout'));
     }
 

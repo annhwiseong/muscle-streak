@@ -29,5 +29,22 @@
     {{ $workout->liked->pluck('name')->join('、') }} がナイスバルク！しました
     </p>
     @endif
+
+    {{-- 応援コメント --}}
+    <div class="mt-6">
+      <div class="flex items-center gap-4">
+        <p class="text-sm text-gray-500">💬 コメント {{ $workout->comments->count() }}</p>
+        <a href="{{ route('workouts.comments.create', $workout) }}" class="text-blue-500 hover:text-blue-700">応援コメントする</a>
+      </div>
+
+      <div class="mt-2">
+        @foreach ($workout->comments as $comment)
+        <a href="{{ route('workouts.comments.show', [$workout, $comment]) }}" class="block py-2 border-b border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800">
+          <p>{{ $comment->comment }}</p>
+          <p class="text-sm text-gray-500">{{ $comment->user->name }}　{{ $comment->created_at->format('Y-m-d H:i') }}</p>
+        </a>
+        @endforeach
+      </div>
+    </div>
   </div>
 </x-layouts.app>

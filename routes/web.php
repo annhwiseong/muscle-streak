@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\WorkoutLikeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ScheduleController;
@@ -22,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/schedule', [ScheduleController::class, 'edit'])->name('schedule.edit');
     Route::put('/schedule', [ScheduleController::class, 'update'])->name('schedule.update');
     Route::resource('workouts', WorkoutController::class);
+    Route::resource('workouts.comments', CommentController::class)->scoped();
     Route::post('/workouts/{workout}/like', [WorkoutLikeController::class, 'store'])->name('workouts.like');
     Route::delete('/workouts/{workout}/like', [WorkoutLikeController::class, 'destroy'])->name('workouts.dislike');
     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');

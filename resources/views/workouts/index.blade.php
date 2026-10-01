@@ -12,6 +12,7 @@
       </p>
       <a href="{{ route('workouts.show', $workout) }}" class="text-blue-500 hover:text-blue-700">詳細を見る</a>
       @include('workouts.partials.like-button', ['workout' => $workout])
+      <p class="text-sm text-gray-500 mt-1">💬 {{ $workout->comments_count }}</p>
     </div>
     @empty
     <p>まだ記録がありません。</p>

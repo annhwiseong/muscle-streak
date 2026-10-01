@@ -70,6 +70,11 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->belongsToMany(Workout::class)->withTimestamps();
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function schedules()
     {
         return $this->hasMany(Schedule::class);
