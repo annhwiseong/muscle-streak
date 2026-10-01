@@ -11,6 +11,7 @@
         記録者: <a href="{{ route('users.show', $workout->user) }}" class="hover:underline">{{ $workout->user->name }}</a>
       </p>
       <a href="{{ route('workouts.show', $workout) }}" class="text-blue-500 hover:text-blue-700">詳細を見る</a>
+      @include('workouts.partials.like-button', ['workout' => $workout])
     </div>
     @empty
     <p>まだ記録がありません。</p>

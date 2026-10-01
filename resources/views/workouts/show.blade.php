@@ -21,5 +21,13 @@
       </form>
     </div>
     @endif
+
+    @include('workouts.partials.like-button', ['workout' => $workout])
+
+    @if ($workout->liked->isNotEmpty())
+    <p class="text-sm text-gray-500 mt-1">
+    {{ $workout->liked->pluck('name')->join('、') }} がナイスバルク！しました
+    </p>
+    @endif
   </div>
 </x-layouts.app>

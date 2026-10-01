@@ -64,6 +64,12 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->hasMany(Workout::class);
     }
 
+    // このユーザーがナイスバルク！した記録
+    public function likes()
+    {
+        return $this->belongsToMany(Workout::class)->withTimestamps();
+    }
+
     public function schedules()
     {
         return $this->hasMany(Schedule::class);

@@ -25,4 +25,10 @@ class Workout extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // この記録にナイスバルク！したユーザー
+    public function liked()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
 }

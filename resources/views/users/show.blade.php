@@ -55,6 +55,8 @@
       <p class="mt-1">{{ Str::limit($workout->memo, 50) }}</p>
       @endif
       <a href="{{ route('workouts.show', $workout) }}" class="text-blue-500 hover:text-blue-700">詳細を見る</a>
+      <a href="{{ route('workouts.show', $workout) }}" class="text-blue-500 hover:text-blue-700">詳細を見る</a>
+      @include('workouts.partials.like-button', ['workout' => $workout])
     </div>
     @empty
     <p class="text-gray-500">まだ記録がありません。</p>

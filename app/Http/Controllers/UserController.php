@@ -16,6 +16,7 @@ class UserController extends Controller
 
         // このユーザーの記録（新しい順・10件ずつ）
         $workouts = $user->workouts()
+            ->with(['user', 'liked'])
             ->latest('trained_on')
             ->latest()
             ->paginate(10);
