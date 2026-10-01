@@ -69,6 +69,18 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->hasMany(Schedule::class);
     }
 
+    // 自分がフォローしている人
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follow_id', 'follower_id')->withTimestamps();
+    }
+
+    // 自分をフォローしている人
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'follow_id')->withTimestamps();
+    }
+    
     // 予定した曜日に連続でトレーニングできた回数
     public function scheduleStreak(): int
     {

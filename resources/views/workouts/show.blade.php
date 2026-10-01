@@ -5,7 +5,9 @@
     @if ($workout->memo)
     <p class="mt-2 whitespace-pre-line">{{ $workout->memo }}</p>
     @endif
-    <p class="text-sm text-gray-500 mt-2">記録者: {{ $workout->user->name }}</p>
+    <p class="text-sm text-gray-500">
+      記録者: <a href="{{ route('users.show', $workout->user) }}" class="hover:underline">{{ $workout->user->name }}</a>
+    </p>
     <p class="text-sm text-gray-500">作成日時: {{ $workout->created_at->format('Y-m-d H:i') }}</p>
     <p class="text-sm text-gray-500">更新日時: {{ $workout->updated_at->format('Y-m-d H:i') }}</p>
 

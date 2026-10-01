@@ -7,7 +7,9 @@
       @if ($workout->memo)
       <p class="mt-1">{{ Str::limit($workout->memo, 50) }}</p>
       @endif
-      <p class="text-sm text-gray-500">記録者: {{ $workout->user->name }}</p>
+      <p class="text-sm text-gray-500">
+        記録者: <a href="{{ route('users.show', $workout->user) }}" class="hover:underline">{{ $workout->user->name }}</a>
+      </p>
       <a href="{{ route('workouts.show', $workout) }}" class="text-blue-500 hover:text-blue-700">詳細を見る</a>
     </div>
     @empty

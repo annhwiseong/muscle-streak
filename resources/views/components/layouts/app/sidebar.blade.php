@@ -28,6 +28,10 @@
                     {{ __('予定の設定') }}
                 </flux:navlist.item>
 
+                <flux:navlist.item icon="user" :href="route('users.show', auth()->user())" :current="request()->routeIs('users.show')" wire:navigate>
+                    {{ __('マイページ') }}
+                </flux:navlist.item>
+
             </flux:navlist>
 
             <flux:spacer />
