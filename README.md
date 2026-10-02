@@ -1,6 +1,6 @@
 # muscle-streak
 
-受講番号：6th-02
+受講番号：6th-02\
 氏名：安 揮星
 
 ## 1. プロダクトの紹介
@@ -48,16 +48,17 @@
 
 テスト用アカウント：
 
-| メールアドレス　| パスワード	| 備考 |
-| demo@example.com	 | password	| メインのデモ用アカウント（筋トレ太郎）|
-| gorita@example.com | password	| 仲間（ゴリ田マッスル）|
-| hanako@example.com | password	| 仲間（プロテイン花子）|
+| メールアドレス | パスワード | 備考 |
+| --- | --- | --- |
+| demo@example.com | password | メインのデモ用アカウント（筋トレ太郎） |
+| gorita@example.com | password | 仲間（ゴリ田マッスル） |
+| hanako@example.com | password | 仲間（プロテイン花子） |
 
-※ デモ用データは sail php artisan migrate:fresh --seed で作成できます．実行した日を基準に作られるため，日が経つとストリークや「今日」の表示が変わります．
+※ デモ用データは `sail php artisan migrate:fresh --seed` で作成できます．実行した日を基準に作られるため，日が経つとストリークや「今日」の表示が変わります．
 
 ## 4. 提出形式
 
-画面収録（必須）
+**画面収録（必須）**
 
-- 動画ファイル名：6th02_muscle-streak_demo.mp4
+- 動画ファイル名：`6th-02_muscle-streak_demo.mp4`
 - 上記「3. 操作方法」の手順 1〜8 を順番に操作している様子を収録
